@@ -1,0 +1,46 @@
+{
+  "apiVersion": "extensions/v1beta1",
+  "kind": "Deployment",
+  "metadata": {
+    "name": "jobmanager",
+    "namespace":"beam-cluster"
+  },
+  "spec": {
+    "replicas": 1,
+    "template": {
+      "metadata": {
+        "labels": {
+          "app": "jobmanager"
+        }
+      },
+      "spec": {
+        "containers": [
+          {
+            "name": "jobmanager",
+            "image": "srfrnk/beam-flink",
+            "command": [
+              "/usr/local/flink/bin/config-flink-load-jar.sh"
+            ],
+            "args": [
+              "jobmanager"
+            ],
+            "ports": [
+              {
+                "containerPort": 8080
+              },
+              {
+                "containerPort": 8081
+              },
+              {
+                "containerPort": 6123
+              },
+              {
+                "containerPort": 22
+              }
+            ]
+          }
+        ]
+      }
+    }
+  }
+}

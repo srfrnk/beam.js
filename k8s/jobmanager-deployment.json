@@ -1,0 +1,43 @@
+{
+  "apiVersion": "extensions/v1beta1",
+  "kind": "Deployment",
+  "metadata": {
+    "name": "taskmanager",
+    "namespace": "beam-cluster"
+  },
+  "spec": {
+    "replicas": 1,
+    "template": {
+      "metadata": {
+        "labels": {
+          "app": "taskmanager"
+        }
+      },
+      "spec": {
+        "containers": [
+          {
+            "name": "taskmanager",
+            "image": "srfrnk/beam-flink",
+            "env": [
+              {
+                "name": "JOBMANAGER_PORT_6123_TCP_ADDR",
+                "value": "jobmanager.beam-cluster.svc.cluster.local"
+              }
+            ],
+            "ports": [
+              {
+                "containerPort": 6121
+              },
+              {
+                "containerPort": 6122
+              },
+              {
+                "containerPort": 22
+              }
+            ]
+          }
+        ]
+      }
+    }
+  }
+}
